@@ -1,5 +1,8 @@
 <!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20x%3D%225%22%20y%3D%228%22%20width%3D%2254%22%20height%3D%2248%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20stroke%3D%22%23203b37%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M18%208v48M32%208v48M46%208v48%22%20stroke%3D%22%23203b37%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M14%208h8v28h-8zM28%208h8v28h-8zM42%208h8v28h-8z%22%20fill%3D%22%23203b37%22%2F%3E%3C%2Fsvg%3E"><title>昱丞的鋼琴練習室｜基本功與左右手指法</title>
+<script>
+(()=>{let theme='light';try{if(localStorage.getItem('piano-practice-theme')==='dark')theme='dark';}catch(e){}document.documentElement.dataset.theme=theme;})();
+</script>
 <style>
 @font-face {
   font-family: 'Noto Sans TC';
@@ -209,8 +212,42 @@
 vector-effect:non-scaling-stroke;stroke-width:1.25px;stroke-opacity:1;opacity:.8;
 }
 .header-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}@media(max-width:700px){header{gap:14px;flex-wrap:wrap}.header-actions{justify-content:flex-start}}
+.header-actions #language-switch{align-self:center;color:var(--teal);display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:1px solid var(--line);border-radius:9px;text-decoration:none}
+.header-actions #language-switch:hover{background:var(--line)}
+
+/* Theme colors apply to the interface; musical diagrams keep explicit contrast. */
+:root{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#141f1d;--ink:#e4eee7;--muted:#acbdb2;--line:#3c5048;--teal:#83caba;--gold:#e2b562;--pink:#e39b8f}
+:root[data-theme="dark"] button{background:#25362f}
+:root[data-theme="dark"] button:hover{background:#33483e}
+:root[data-theme="dark"] button.active,:root[data-theme="dark"] button.primary{background:var(--teal);color:#142c25;border-color:var(--teal)}
+:root[data-theme="dark"] .panel{background:#1c2b25}
+:root[data-theme="dark"] .heroaside{background:#253c33;color:#f4f1e4}
+:root[data-theme="dark"] .cell{background:#2d4036}
+:root[data-theme="dark"] .cell.head{background:transparent}
+:root[data-theme="dark"] .cell.note{background:#354c40;color:#f6f2e8}
+:root[data-theme="dark"] .cell.current{background:#f4e5be;color:#203b37}
+:root[data-theme="dark"] .tip{background:#373322}
+:root[data-theme="dark"] .mini{background:#293a31}
+:root[data-theme="dark"] .badge{background:#2d4539}
+a{color:var(--teal)}
+/* White/black keys and dark notation on a light score are theme-independent. */
+#read-staff svg,#read-key-staff svg,#rest-cards svg,#rest-question svg{background:#fffdf8;color:#203b37;border-radius:10px}
+.map-preview,#read-map-viewport{background:#fffdf8;color:#203b37}
+.map-preview .small{color:#63736a}
+:root[data-theme="dark"] .map-preview,:root[data-theme="dark"] .map-preview:hover{background:#fffdf8;color:#203b37}
+.key-bed .white-key:hover{background:#e4ece1}
+.key-bed .black-key:hover{background:#354c40}
+.key-bed .white-key[aria-pressed="true"]{background:#e8c778}
+.key-bed .black-key[aria-pressed="true"]{background:#b98b39}
+:root[data-theme="dark"] .key-bed .white-key{background:#fffdf8;color:#203b37}
+:root[data-theme="dark"] .key-bed .black-key{background:#203b37;color:#fffdf8}
+:root[data-theme="dark"] .key-bed .white-key:hover{background:#e4ece1}
+:root[data-theme="dark"] .key-bed .black-key:hover{background:#354c40}
+:root[data-theme="dark"] .key-bed .white-key[aria-pressed="true"]{background:#e8c778}
+:root[data-theme="dark"] .key-bed .black-key[aria-pressed="true"]{background:#b98b39}
 </style></head><body>
-<header><div class="brand"><span class="mark" aria-hidden="true"></span>PIANO / DAILY PRACTICE</div><div class="header-actions"><span id="piano-audio-status" class="small" role="status" aria-live="polite">鋼琴音色載入中…</span><button id="global-sound" type="button" aria-pressed="true" aria-label="全站聲音開關">聲音：開啟 ♪</button><button onclick="window.print()">列印完整指法手冊 ↗</button></div></header>
+<header><div class="brand"><span class="mark" aria-hidden="true"></span>PIANO / DAILY PRACTICE</div><div class="header-actions"><a href="piano-practice-en.html" id="language-switch" title="Switch to English" aria-label="Switch to English" lang="en"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5h14M5 17.5h14"/></svg></a><span id="piano-audio-status" class="small" role="status" aria-live="polite">鋼琴音色載入中…</span><button id="global-sound" type="button" aria-pressed="true" aria-label="全站聲音開關">聲音：開啟 ♪</button><button id="theme-toggle" type="button" aria-pressed="false" aria-label="切換深色主題">☾ 深色模式</button></div></header>
 <main><section class="hero"><div><div class="eyebrow">FOR 昱丞 · 初學階段練習指南</div><h1>把喜歡的曲子，<br><span>一點一點彈進手裡。</span></h1><p class="intro">音階、琶音、和弦與雙手協調。每天挑一個調，慢慢練穩，再把能力帶進你喜歡的旋律。</p><span class="badge">先求放鬆與均勻，再增加速度</span></div><aside class="heroaside"><div class="eyebrow">FINGER MAP / 左右手皆相同</div><div class="fingers"><div class="finger"><b>1</b>拇指</div><div class="finger"><b>2</b>食指</div><div class="finger"><b>3</b>中指</div><div class="finger"><b>4</b>無名指</div><div class="finger"><b>5</b>小指</div></div><p class="small">數字是手指，不是音級。指法列與音名逐格對齊；C4 是中央 C。右手示例從第 4 八度起，左手從第 3 八度起。</p></aside></section>
 <nav aria-label="練習分類"><button class="active" data-tab="daily">每日菜單</button><button data-tab="scales">音階</button><button data-tab="arps">琶音</button><button data-tab="chords">和弦</button><button data-tab="doubles">雙音練習</button><button data-tab="hanon">哈農</button><button data-tab="musical">節奏與表現</button><button data-tab="reading">讀譜複習</button><button data-tab="rests">休止符</button></nav>
 
@@ -272,7 +309,7 @@ await Promise.all(Object.entries(samples).map(async([m,encoded])=>{
 const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));
 pianoBuffers.set(+m,await audio.decodeAudioData(bytes.buffer));
 }));
-$('piano-audio-status').textContent='鋼琴音色已就緒';return true;
+$('piano-audio-status').textContent='';$('piano-audio-status').hidden=true;return true;
 }catch(error){$('piano-audio-status').textContent='鋼琴音色載入失敗，請重新整理重試';console.error('Piano sample loading:',error);return false;}
 })();
 async function tone(m,scheduledTime){
@@ -480,7 +517,15 @@ document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()
 el('rest-cards').innerHTML=rests.map((r,i)=>'<div class="mini"><h3>'+r.name+'</h3>'+picture(i,true)+'<p><strong>'+r.beats+'</strong>（四分音符＝一拍）</p></div>').join('');
 el('printpages').insertAdjacentHTML('beforeend','<section class="printpage"><h1>休止符速查</h1><p>4/4 拍，四分音符為一拍；休止時仍要數拍。</p><table><tr><th>符號</th><th>名称</th><th>時值</th></tr>'+rests.map((r,i)=>'<tr><td style="width:120px">'+picture(i,true)+'</td><td>'+r.name+'</td><td>'+r.beats+'</td></tr>').join('')+'</table><p>全休止符掛在第四線下，二分休止符坐在第三線上。全小節休止長度依拍號決定。</p></section>');
 })();
-</script></body><!-- Embedded Noto Sans TC font license:
+</script><script>
+(()=>{
+const button=document.getElementById('theme-toggle');
+function update(){const dark=document.documentElement.dataset.theme==='dark';button.textContent=dark?'☀ 淺色模式':'☾ 深色模式';button.setAttribute('aria-pressed',String(dark));button.setAttribute('aria-label',dark?'切換淺色主題':'切換深色主題');}
+button.onclick=()=>{const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;try{localStorage.setItem('piano-practice-theme',theme);}catch(e){}update();};
+update();
+})();
+</script>
+</body><!-- Embedded Noto Sans TC font license:
 Google Inc.
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.

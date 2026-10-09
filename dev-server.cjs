@@ -4,7 +4,8 @@ const path = require('node:path');
 
 const pagePath = path.join(__dirname, 'piano-practice.html');
 const clients = new Set();
-let version = fs.statSync(pagePath).mtimeMs;
+const pagePaths = [pagePath, path.join(__dirname, 'piano-practice-en.html')];
+const versions = new Map(pagePaths.map(file => [file, fs.statSync(file).mtimeMs]));
 const reloadScript = `<script>
 (() => {
   const events = new EventSource('/__reload');
@@ -25,12 +26,13 @@ const server = http.createServer((req, res) => {
     req.on('close', () => clients.delete(res));
     return;
   }
-  if (route !== '/' && route !== '/piano-practice.html') {
+  if (!['/', '/piano-practice.html', '/piano-practice-en.html'].includes(route)) {
     res.writeHead(404);
     res.end('Not found');
     return;
   }
-  fs.readFile(pagePath, 'utf8', (error, html) => {
+  const requestedPage = route === '/piano-practice-en.html' ? pagePaths[1] : pagePath;
+  fs.readFile(requestedPage, 'utf8', (error, html) => {
     if (error) {
       res.writeHead(500);
       res.end('Unable to read piano-practice.html');
@@ -46,9 +48,9 @@ const server = http.createServer((req, res) => {
 
 // Polling also catches editors that save by replacing the file atomically.
 const watcher = setInterval(() => {
-  fs.stat(pagePath, (error, stat) => {
-    if (!error && stat.mtimeMs !== version) {
-      version = stat.mtimeMs;
+  for (const file of pagePaths) fs.stat(file, (error, stat) => {
+    if (!error && stat.mtimeMs !== versions.get(file)) {
+      versions.set(file, stat.mtimeMs);
       for (const client of clients) client.write('event: change\ndata: reload\n\n');
     }
   });
