@@ -27,7 +27,6 @@ node dev-server.cjs
 - Bravura 樂譜符號：Steinberg，SIL OFL 1.1，授權見 `assets/notation/Bravura-LICENSE.txt`。
 - Noto Sans TC：SIL OFL 1.1；授權文字保留於 HTML。
 
-## 已知問題
+## 後續規劃
 
-- 音源尚未載入完成時停止音階／雙音示範，待播放音可能仍會在載入後發聲。
-- 雙音左手示範的狀態文字目前使用右手音區；鍵盤與實際播放音高正確。
+見 `TODO.md`；目前先保留網頁版本，App 與 MIDI 尚未開始實作。
