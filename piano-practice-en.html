@@ -207,9 +207,12 @@
 @media(max-width:700px){#read-map-dialog{padding:12px}.map-dialog-top h2{font-size:18px}.map-dialog-top button{padding:8px}}
 
 /* Preserve staff and ledger strokes when SVGs or the page are zoomed. */
-#read-staff svg line,#read-key-staff svg line,
-#read-map svg line:not([stroke-dasharray]),#read-map-large svg line:not([stroke-dasharray]){
+#read-staff svg line,#read-key-staff svg line{
 vector-effect:non-scaling-stroke;stroke-width:1.25px;stroke-opacity:1;opacity:.8;
+}
+/* Match staff and ledger color; snap thin strokes to pixels at every zoom. */
+#read-map svg line:not([stroke-dasharray]),#read-map-large svg line:not([stroke-dasharray]){
+vector-effect:non-scaling-stroke;stroke-width:1px;stroke:#52665d;stroke-opacity:1;opacity:1;shape-rendering:crispEdges;
 }
 .header-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}@media(max-width:700px){header{gap:14px;flex-wrap:wrap}.header-actions{justify-content:flex-start}}
 .header-actions #language-switch{align-self:center;color:var(--teal);display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border:1px solid var(--line);border-radius:9px;text-decoration:none}
